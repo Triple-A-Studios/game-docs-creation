@@ -1,5 +1,5 @@
 ---
-name: game-dev-docs
+name: game-docs-creation
 description: Manages the full project-documentation and phase/milestone/pass workflow for Unity and Unreal game projects inside Claude Code — creates and maintains Docs/design-doc.md, plan.md, progress.md, current-state.md, and a system-organized technical-design-doc.md, keeps a managed section of CLAUDE.md current so every fresh session knows what to read, and enforces git hygiene (one branch per milestone, manual verification before any commit, caveman-style commit messages). Use this whenever the developer is working in a Unity or Unreal repo and wants to start a new game project's docs, pick up where they left off, check what milestone/pass they're on, scope the next milestone or phase, or commit finished work. Also trigger near the start of a coding session in a Unity/Unreal repo so Claude knows whether project setup is needed before doing anything else. Trigger phrases include "let's start building this game," "what's next," "set up my project docs," "what pass am I on," "I finished this pass," or any mention of phases/milestones/passes/backlog in a game-dev context.
 ---
 
