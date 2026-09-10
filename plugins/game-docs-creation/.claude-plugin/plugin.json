@@ -1,0 +1,6 @@
+{
+  "name": "game-docs-creation",
+  "description": "Manages a design doc, phase/milestone/pass tracking docs, and git/commit hygiene for Unity and Unreal projects in Claude Code.",
+  "version": "1.0.0",
+  "author": { "name": "Ali Qadir", "email": "ali.qadir.007@outlook.com" }
+}

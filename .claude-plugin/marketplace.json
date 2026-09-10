@@ -1,0 +1,12 @@
+{
+  "name": "triple-a-studios",
+  "description": "Claude Code plugins for game development workflows.",
+  "owner": { "name": "Ali Qadir", "email": "ali.qadir.007@outlook.com" },
+  "plugins": [
+    {
+      "name": "game-docs-creation",
+      "source": "./plugins/game-docs-creation",
+      "description": "Manages a design doc, phase/milestone/pass tracking docs, and git/commit hygiene for Unity and Unreal projects in Claude Code."
+    }
+  ]
+}
