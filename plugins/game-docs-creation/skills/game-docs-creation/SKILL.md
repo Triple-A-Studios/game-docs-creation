@@ -13,15 +13,49 @@ It works alongside two other skills rather than duplicating them:
 
 ## Step 0 — Figure out where this project is
 
-Every invocation starts here. Look in `root/Docs/` for files matching (case-insensitively, substring or close variants of) `design`, `plan`, `progress`, `current-state`, `technical-design`. Also read the managed block in `CLAUDE.md` if one exists (see [CLAUDE.md block](#the-claudemd-block)) — it carries engine, testing preference, and co-author preference so you don't have to re-detect them every time.
+Every invocation starts here. Look in `root/Docs/` (not recursing into `Docs/legacy/` — see [Path D](#path-d-migrate-a-non-conforming-doc)) for files matching (case-insensitively, substring or close variants of) `design`, `plan`, `progress`, `current-state`, `technical-design`. Also read the managed block in `CLAUDE.md` if one exists (see [CLAUDE.md block](#the-claudemd-block)) — it carries engine, testing preference, co-author preference, and the conformance flag (below) so you don't have to re-detect them every time.
 
-| Found | Situation | Go to |
-|---|---|---|
-| No design-doc-like file | Nothing started yet | [Path A](#path-a-no-design-doc-yet) |
-| Design doc exists, but no `plan.md` | Idea is settled, project isn't scaffolded | [Path B](#path-b-design-doc-exists-project-not-yet-scaffolded) |
-| All five docs exist | Project is up and running | [Path C](#path-c-project-scaffolded--resume-or-scope-next) |
+`plan.md`, `progress.md`, `current-state.md`, and `technical-design-doc.md` are referred to below as **the B7 set** (they're created together in [B7](#b7-create-the-docs)). `design-doc.md` is always checked separately since everything else depends on it.
 
-A design doc that exists but still has unanswered/placeholder sections is **not** "no design doc" — it's Path A's fill-the-gaps case (below), not Path B. Don't skip straight to scaffolding on an incomplete doc.
+| `design-doc.md` | B7 set | Conformance | Route |
+|---|---|---|---|
+| Absent | Absent | — | [Path A](#path-a-no-design-doc-yet) — fresh start |
+| Absent | Any member present | — | **Anomaly** — a plan or tech doc existing with no design doc is abnormal. Ask the developer whether one of the existing docs should be adopted/renamed as `design-doc.md` before doing anything else. Don't default to Path A. |
+| Present, has placeholders (`*Not yet discussed*` or similar) | any | — | [Path A gap-fill](#a1-locate-or-start-the-doc) — resolve the design doc first; ignore B7-set state until it's settled |
+| Present, complete | Absent | — | [Path B](#path-b-design-doc-exists-project-not-yet-scaffolded) — fresh scaffold |
+| Present, complete | Partial (some but not all four exist) | Check existing members ([below](#checking-conformance)) | Run B7 — it's idempotent (see [B7](#b7-create-the-docs)): skips members that already exist and conform, skeleton-generates the rest |
+| Present, complete | Partial, and an existing member fails conformance | Failed | [Path D](#path-d-migrate-a-non-conforming-doc) on that member first, then B7 as above for anything still missing |
+| Present, complete | Full set present | All conform | [Path C](#path-c-project-scaffolded--resume-or-scope-next) — resume |
+| Present, complete | Full set present | One or more fail | [Path D](#path-d-migrate-a-non-conforming-doc) on the failing member(s), then Path C |
+
+A design doc that exists but still has unanswered/placeholder sections is **not** "no design doc" — it's Path A's fill-the-gaps case, not Path B. Don't skip straight to scaffolding on an incomplete doc.
+
+### Checking conformance
+
+Don't read every doc in full on every invocation — that's wasted cost on the common case where everything already matches this skill's structure. Instead:
+
+1. **Cheap structural pass, once per project.** Only for files that are actually present, and only if the CLAUDE.md block doesn't already say `docs-conformant: true`. Grep-level checks, not full reads: does `plan.md` have phase/milestone/pass headers? Does `technical-design-doc.md` have multiple per-system `##` sections rather than reading as one undivided dump? If both `progress.md` and `current-state.md` exist, are they structurally distinct (different header sets) rather than one's content duplicated into the other? If only one of the two exists, don't wave it through by default — check whether it reads as carrying live/active status (language like "currently," "in progress," "next up," a named active task) rather than pure frozen history; if so it's silently playing both roles and fails conformance even though its sibling is merely absent, not overlapping.
+2. **Full read only on suspicion.** If the structural pass flags a file, read it in full to confirm, then go to [Path D](#path-d-migrate-a-non-conforming-doc) for that file only — not the whole B7 set.
+3. **Cache the verdict.** Once every present doc conforms (fresh scaffold, or after Path D migration finishes), write `docs-conformant: true` into the [CLAUDE.md block](#the-claudemd-block). Step 0 then skips the structural pass entirely on future invocations. If the developer mentions hand-editing a doc outside the skill, redo the structural pass for that file only and update the flag accordingly.
+
+## Path D: migrate a non-conforming doc
+
+Reached when a doc exists but doesn't follow this skill's structure — e.g. a `technical-design-doc.md` that's a monolithic dump instead of split per-system, a `plan.md` that doesn't follow phase → milestone → pass → sub-pass, or a `progress.md`/`current-state.md` that are merged or overlapping instead of "frozen history" vs. "live snapshot." This is a one-time migration per file, not an in-place rewrite — **never edit the non-conforming file directly.** Instead:
+
+1. Move the existing file, unchanged, to `Docs/legacy/<original filename>` (create the folder if needed). It stays there as-is — a diffable, referenceable record of what was there before.
+2. Create a fresh file at the skill's canonical path (e.g. `Docs/plan.md`) and populate it by migrating the old content across, mapped onto the target structure in `references/doc-templates.md`.
+3. Ask the developer to confirm anywhere the mapping is ambiguous (content that could belong in more than one section, or a boundary — like where one milestone ends and the next begins — that isn't explicit in the source). Never silently drop content that doesn't have an obvious home; ask where it goes, or park it in a clearly-labeled section for the developer to sort later.
+4. Add a one-line HTML comment at the top of the new file pointing at its `Docs/legacy/` counterpart, so anyone opening it cold knows a pre-migration version exists to cross-check against.
+
+This lets the developer diff old against new and dig up anything the migration missed, rather than trusting a silent in-place rewrite.
+
+Per doc type:
+- **`design-doc.md`** is the one exception — a design doc missing some of this skill's questions is still the *same document shape*, just incomplete, so this is [A1](#a1-locate-or-start-the-doc)'s gap-fill case: fill in what's missing or unclear against `references/question-bank.md` in place, no retire-and-recreate needed. If a design doc is actually mis-*structured* (not just incomplete — e.g. sections that don't map to this skill's shape at all), treat it like the others: retire it to `Docs/legacy/`, create a fresh `design-doc.md`, and run A1 against the old file's content as the source instead of a blank slate.
+- **`plan.md`** — extract whatever phase/milestone structure is recognizable from the retired file; ask the developer to confirm boundaries and completeness rather than inventing them; write the new `plan.md` following the phase → milestone → pass template.
+- **`technical-design-doc.md`** — propose a per-system split based on whatever structure the retired file has (headers/sections/comments), or, for undivided prose, on the systems/classes/subsystems it actually names; confirm the split with the developer before committing to it; write the new file as separate system sections per the template.
+- **`progress.md` + `current-state.md`** — if both exist but overlap, or a single file covers both roles, retire whichever file(s) hold the mixed content; separate live, in-flight status (which pass is active, what's next) into a fresh `current-state.md`'s live-snapshot shape, and completed/frozen milestone history into a fresh `progress.md`'s table; ask the developer to confirm the split wherever it's not obvious which bucket something belongs in.
+
+Once a file's migration is done, re-run its conformance check on the new file (it should now pass) before updating the `docs-conformant` flag.
 
 ## Path A: No design doc yet
 
@@ -82,10 +116,12 @@ Ask whether the developer wants to plan **all of this phase's milestones' passes
 
 ### B7. Create the docs
 
+Idempotent — when reached via Step 0's partial-B7-set row, skip any of the four below that already exists and conforms (per [Checking conformance](#checking-conformance)); for the rest, generate skeletons, inferring from whichever of the four already exist where possible (e.g. build `current-state.md`'s skeleton from `plan.md`'s milestone list if `plan.md` is already there).
+
 1. `plan.md` — phases + milestones + what "done" means for each, using the template in `references/doc-templates.md`. This is the target; it never records status.
 2. `progress.md`, `current-state.md` — created but left as empty skeletons (headers only) until B8/the first pass is defined.
 3. `technical-design-doc.md` — empty, or pre-populated with the B3 audit results, split system-wise per `references/doc-templates.md`.
-4. Install/update the [CLAUDE.md block](#the-claudemd-block).
+4. Install/update the [CLAUDE.md block](#the-claudemd-block), including the `docs-conformant: true` flag once every present doc has been confirmed to conform.
 
 ### B8. Move straight into scoping
 
@@ -132,7 +168,7 @@ If `CLAUDE.md` doesn't exist, create one. If it does, only ever touch the sectio
 <!-- game-dev-docs:end -->
 ```
 
-Never edit anything outside those markers. Regenerate the whole block in one go rather than patching pieces of it. It should tell a fresh session: which docs exist and in what order to read them, the detected engine, the Unity testing preference (if applicable), the co-author-line preference (if the developer opted out permanently), and the one-line instruction to always check `current-state.md` before starting work and update it after every commit.
+Never edit anything outside those markers. Regenerate the whole block in one go rather than patching pieces of it. It should tell a fresh session: which docs exist and in what order to read them, the detected engine, the Unity testing preference (if applicable), the co-author-line preference (if the developer opted out permanently), the `docs-conformant` flag (see [Checking conformance](#checking-conformance)), and the one-line instruction to always check `current-state.md` before starting work and update it after every commit.
 
 ## Reference files
 
