@@ -108,7 +108,7 @@ Ask the developer to divide the project into: **Prototype → MVP → Alpha → 
 
 ### B5. Scope the first phase's milestones
 
-For the first non-skipped phase, propose milestone candidates grounded in the design doc (and, if B3 ran an audit, in what's already built). Present them as suggestions, not a fixed list — the developer picks, edits, drops, or adds their own. See [Scoping milestones and passes](#scoping-milestones-and-passes) for the suggestion pattern.
+For the first non-skipped phase, propose milestone candidates grounded in the design doc (and, if B3 ran an audit, in what's already built). Present them as suggestions, not a fixed list — the developer picks, edits, drops, or adds their own. See [Scoping milestones and passes](#scoping-milestones-and-passes) for the suggestion pattern — including the immediate `plan.md` write once the list is finalized. Don't leave this step done only in conversation; B7 depends on the phase's milestones already being decided.
 
 ### B6. Decide planning granularity
 
@@ -135,19 +135,19 @@ This is the common case on every later invocation. Read `current-state.md`'s liv
 |---|---|
 | A defined next pass | Jump straight to [Working a pass](#working-a-pass--commit-hygiene) — no scoping conversation needed |
 | Current milestone's passes all landed/verified, next milestone has no passes defined | Check the backlog (below), then scope passes for the next milestone — see [Scoping milestones and passes](#scoping-milestones-and-passes) |
-| Current phase's milestones exhausted, next phase has no milestones defined | Check the backlog, then run B5+B6+scoping for the next phase, same pattern as first-time setup |
+| Current phase's milestones exhausted, next phase has no milestones defined | Check the backlog, then run B5+B6+scoping for the next phase, same pattern as first-time setup — including writing the finalized milestones into `plan.md` before moving on |
 
 **Always check the backlog table in `progress.md` before scoping anything new** (a milestone's passes, or a phase's milestones): ask the developer whether any open backlog items (deferred features, known bugs) should be folded into what's about to be scoped. An item only clears the backlog once it's actually folded into a pass that lands — see `references/status-and-engine.md` for how backlog rows get created in the first place.
 
 ## Scoping milestones and passes
 
-**Milestones** (within a phase): propose candidates from the design doc plus what's already documented in `technical-design-doc.md`/`progress.md`; the developer picks, edits, or adds their own. Never present a take-it-or-leave-it list — these are starting points.
+**Milestones** (within a phase): propose candidates from the design doc plus what's already documented in `technical-design-doc.md`/`progress.md`; the developer picks, edits, or adds their own. Never present a take-it-or-leave-it list — these are starting points. **The moment the list is finalized, write it into `plan.md`** under that phase's heading (name + one-line "done" definition per the template in `references/doc-templates.md`) — before moving on to pass-scoping or any code. This isn't an optional follow-up: a phase's milestones existing only in the conversation, with `plan.md` still showing just the bare phase list, is a bug, not an acceptable interim state.
 
 **Passes** (within a milestone): number sequentially — 1, 2, 3... Whether you define all of a milestone's passes now or just the next one follows the B6 choice (or, for later milestones/phases, ask again since scope may differ). Before finalizing, fold in any backlog items the developer chose to include in Path C's check-in.
 
 **Sub-passes** (within a pass): never defined upfront. Only break a pass into sub-passes (1.a, 1.b...) when the developer actually reaches that pass and it turns out to be big enough to warrant it. Decide this in the moment, not during milestone scoping.
 
-After scoping, update `plan.md` (if new milestones/phases were added to the target) and `progress.md`/`current-state.md` per the ownership rules in `references/doc-templates.md` — the short version: `progress.md` freezes a full pass table only for *landed* milestones and just says "In Progress — see current-state.md" for the active one; `current-state.md` is the only place live pass-by-pass status actually lives.
+After pass-scoping (milestones are already written to `plan.md` per above by this point), update `progress.md`/`current-state.md` per the ownership rules in `references/doc-templates.md` — the short version: `progress.md` freezes a full pass table only for *landed* milestones and just says "In Progress — see current-state.md" for the active one; `current-state.md` is the only place live pass-by-pass status actually lives.
 
 ## Working a pass & commit hygiene
 
