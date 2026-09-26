@@ -6,7 +6,7 @@
     {
       "name": "game-docs-creation",
       "source": "./plugins/game-docs-creation",
-      "description": "Manages a design doc, phase/milestone/pass tracking docs, and git/commit hygiene for Unity and Unreal projects in Claude Code."
+      "description": "A skill family (entry-point router + setup + resume + conformance/migration) that manages a design doc, phase/milestone/pass tracking docs, and git/commit hygiene for Unity and Unreal projects in Claude Code."
     }
   ]
 }
