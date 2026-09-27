@@ -1,6 +1,6 @@
 {
   "name": "game-docs-creation",
   "description": "A skill family (entry-point router + setup + resume + conformance/migration) that manages a design doc, phase/milestone/pass tracking docs, and git/commit hygiene for Unity and Unreal projects in Claude Code.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": { "name": "Ali Qadir", "email": "ali.qadir.007@outlook.com" }
 }
