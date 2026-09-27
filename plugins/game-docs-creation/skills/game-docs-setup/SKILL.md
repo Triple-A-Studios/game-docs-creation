@@ -100,4 +100,4 @@ Never edit anything outside those markers. Regenerate the whole block in one go 
 
 - `references/question-bank.md` — the forked, repo-bound question bank used in Path A. Evolves independently from `game-ideation`'s copy from here on.
 - `references/doc-templates.md` — the exact structure for every doc this skill creates, plus the CLAUDE.md block template.
-- `references/status-and-engine.md` — the full pass-status state list (including the Unity-testing variant), the engine-specific verification notes, and how the backlog table works.
+- `references/status-and-engine.md` — the full pass-status state list (including the Unity-testing variant), the engine-specific verification notes, and how the Open/Closed backlog tables work.

@@ -47,9 +47,9 @@ When there's existing code or packages to fold into `technical-design-doc.md` be
 
 ## The backlog
 
-Lives as one table inside `progress.md` (see `references/doc-templates.md` for its exact shape). Two ways a row gets added:
+Lives as two tables inside `progress.md` — **Backlog — Open** and **Backlog — Closed** (see `references/doc-templates.md` for their exact shape). Two ways a row gets added to Open:
 
 1. **Automatically**, whenever a pass lands as **Landed — Incomplete** — mirror whatever the Notes/Features cell says was left, as a new backlog row linked back to that pass. Nothing needs to be separately remembered; it falls out of updating the docs after the commit.
 2. **Manually**, when a bug surfaces during verification that isn't tied to a specific pass's leftover scope — add it the same way, tagged with where it was found.
 
-A row's Status moves to `Resolved` (never deleted — the record should stay honest about what was deferred and for how long) once it's actually folded into a pass that lands. Before scoping any new milestone's passes or any new phase's milestones, check this table and ask the developer whether any open item should be folded in now — see Path C in SKILL.md.
+Each row gets the next sequential `No.` when added, never reused. Once it's actually folded into a pass that lands, move the row from Open to Closed (same `No.`, add a `Status` of `Resolved`) — never delete it outright, and never leave it duplicated in both tables; the record should stay honest about what was deferred and for how long. Before scoping any new milestone's passes or any new phase's milestones, check the Open table and ask the developer whether any open item should be folded in now — see Path C in SKILL.md.

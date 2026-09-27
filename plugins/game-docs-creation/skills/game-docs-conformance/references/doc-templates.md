@@ -52,17 +52,23 @@ A skipped phase keeps its heading with `— Skipped` so it's visibly a deliberat
 
 ## `progress.md`
 
-The historical record. Owns the **backlog table**. For any given milestone, only one of these three forms is present at a time:
+The historical record. Owns the **backlog tables** (Open and Closed). For any given milestone, only one of these three forms is present at a time:
 
 ```markdown
 # Progress
 
-## Backlog
+## Backlog — Open
 
-| Item | Origin | Type | Status |
+| No. | Item | Origin | Type |
 |---|---|---|---|
-| <short description> | [Pass 2, Milestone: Movement](current-state.md) | Deferred feature | Open |
-| <short description> | [Pass 1, Milestone: Movement](current-state.md) | Bug | Open |
+| 1 | <short description> | [Pass 2, Milestone: Movement](current-state.md) | Deferred feature |
+| 2 | <short description> | [Pass 1, Milestone: Movement](current-state.md) | Bug |
+
+## Backlog — Closed
+
+| No. | Item | Origin | Type | Status |
+|---|---|---|---|---|
+| 3 | <short description> | [Pass 1, Milestone: Movement](current-state.md) | Bug | Resolved |
 
 ## Phase: Prototype
 
@@ -87,7 +93,8 @@ Rules:
 - A **completed** milestone gets its full pass table frozen in permanently — copy it from `current-state.md` at the moment the milestone lands, then it stops changing.
 - The **active** milestone never gets its own pass table here — just the one-line pointer to `current-state.md`. This is the single biggest anti-duplication rule in this whole skill: don't let two files claim to be the live source of truth for the same pass.
 - **Upcoming** milestones/phases get a name and a link into `plan.md` — never a restated definition of done.
-- Backlog rows are added automatically whenever a pass lands incomplete (mirroring that pass's "features left" note) or when a bug surfaces during verification that isn't tied to a specific pass. A row's Status flips to `Resolved` — never deleted — once it's folded into a pass that lands.
+- Rows are added to **Backlog — Open** automatically whenever a pass lands incomplete (mirroring that pass's "features left" note) or when a bug surfaces during verification that isn't tied to a specific pass. Each row gets the next sequential `No.`, never reused.
+- Once an open item is folded into a pass that lands, move its row to **Backlog — Closed** (same `No.`, add a `Status` of `Resolved`) and remove it from the Open table — never delete it outright, and never leave it duplicated in both tables.
 
 ---
 
@@ -108,7 +115,7 @@ Live snapshot. The only place pass-by-pass status for the *active* milestone act
 | Pass | Status | Notes / Features | Target |
 |---|---|---|---|
 | 1 | Verified — Complete (`aa11bb2`) | Hitbox detection | Melee range check |
-| 2 | Landed — Incomplete (`def5678`) | Jump works; double jump deferred, see [backlog](progress.md#backlog) | Double jump |
+| 2 | Landed — Incomplete (`def5678`) | Jump works; double jump deferred, see [backlog](progress.md#backlog--open) | Double jump |
 | 3 | In Progress | — | Basic melee attack |
 | 3.a | Not Started | — | Attack animation trigger |
 | 3.b | Not Started | — | Damage application |

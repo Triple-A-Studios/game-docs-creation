@@ -19,7 +19,7 @@ Read `current-state.md`'s live snapshot first.
 | Current milestone's passes all landed/verified, next milestone has no passes defined | Check the backlog (below), then scope passes for the next milestone — see [Scoping milestones and passes](#scoping-milestones-and-passes) |
 | Current phase's milestones exhausted, next phase has no milestones defined | Check the backlog, then scope the next phase's milestones the same way the first phase was scoped, then scope its first milestone's passes — see [Scoping milestones and passes](#scoping-milestones-and-passes) |
 
-**Always check the backlog table in `progress.md` before scoping anything new** (a milestone's passes, or a phase's milestones): ask the developer whether any open backlog items (deferred features, known bugs) should be folded into what's about to be scoped. An item only clears the backlog once it's actually folded into a pass that lands — see `references/status-and-engine.md` for how backlog rows get created in the first place.
+**Always check the Backlog — Open table in `progress.md` before scoping anything new** (a milestone's passes, or a phase's milestones): ask the developer whether any open backlog items (deferred features, known bugs) should be folded into what's about to be scoped. An item only clears the backlog once it's actually folded into a pass that lands — see `references/status-and-engine.md` for how backlog rows get created in the first place.
 
 ## Scoping milestones and passes
 
@@ -47,4 +47,4 @@ Only ever touch the section wrapped in `<!-- game-dev-docs:start -->` / `<!-- ga
 ## Reference files
 
 - `references/doc-templates.md` — the exact structure for every doc, plus the CLAUDE.md block template.
-- `references/status-and-engine.md` — the full pass-status state list (including the Unity-testing variant), the engine-specific verification notes, and how the backlog table works.
+- `references/status-and-engine.md` — the full pass-status state list (including the Unity-testing variant), the engine-specific verification notes, and how the Open/Closed backlog tables work.
