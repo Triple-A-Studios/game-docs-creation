@@ -82,7 +82,7 @@ Idempotent — if any of the four below already exists and conforms (e.g. becaus
 
 ### B8. Move straight into scoping
 
-Don't stop here — go directly into scoping the first milestone's passes (numbered sequentially, 1, 2, 3...; whether you define all of this milestone's passes now or just the next one follows the B6 choice) so the developer leaves this conversation with an actual next pass to work on. After scoping, update `progress.md`/`current-state.md` per the ownership rules in `references/doc-templates.md`, then hand off to `game-docs-resume` for the actual pass work (branching, commit hygiene) — see its "Working a pass" flow.
+Don't stop here — go directly into scoping the first milestone's passes (numbered sequentially, 1, 2, 3...; whether you define all of this milestone's passes now or just the next one follows the B6 choice) so the developer leaves this conversation with an actual next pass to work on. After scoping, update `progress.md`/`current-state.md` per the ownership rules in `references/doc-templates.md`, then hand off to `game-docs-resume` for the actual pass work (branching, commit hygiene) — see its "Working a pass" flow. Optionally mention `game-docs-spec` first: if the first milestone builds a system whose rules aren't pinned down yet (a player controller, combat), the developer can hammer out its spec before or alongside pass scoping. It's an offer, not a step; carry on if they decline.
 
 ## The CLAUDE.md block
 

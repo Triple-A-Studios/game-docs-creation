@@ -1,6 +1,6 @@
 # Doc Templates
 
-Exact structure for every file this skill owns. Use these as-is — consistency across sessions matters more than any single session's stylistic preference. All five docs live in `root/Docs/`.
+Exact structure for every file this skill owns. Use these as-is — consistency across sessions matters more than any single session's stylistic preference. All five docs live in `root/Docs/`. Optional system specs (`Docs/spec-index.md` and `Docs/specs/<system>.md`) are owned by the `game-docs-spec` skill, which keeps its own templates; they are not part of this set.
 
 ## Filename rule
 
@@ -158,7 +158,7 @@ Each linked file (under `Docs/technical-design/`) documents one system: what it 
 This project uses the `game-dev-docs` skill. Before doing any work in a fresh session:
 1. Read `Docs/current-state.md` first — the live snapshot of what's landed and what's next.
 2. Read `Docs/plan.md` and `Docs/progress.md` for phase/milestone context as needed.
-3. Read the relevant file(s) in `Docs/technical-design/` before touching a system you haven't worked in this session.
+3. Read the relevant file(s) in `Docs/technical-design/` before touching a system you haven't worked in this session. If `Docs/specs/` exists, also read that system's spec there; it holds the intended rules.
 
 **Project settings**
 - Engine: <Unity | Unreal>
