@@ -15,7 +15,7 @@ Don't read every doc in full on every invocation — that's wasted cost on the c
 2. **Full read only on suspicion.** If the structural pass flags a file, read it in full to confirm, then run migration ([below](#migrating-a-non-conforming-doc)) for that file only — not the whole doc set.
 3. **Cache the verdict.** Once every present doc conforms (fresh scaffold, or after migration finishes), write `docs-conformant: true` into the CLAUDE.md block (template in `references/doc-templates.md`). Callers can then skip invoking this skill entirely on future invocations. If the developer mentions hand-editing a doc outside the skill, redo the structural pass for that file only and update the flag accordingly.
 
-`design-doc.md` gets a lighter check: it's non-conforming only if a `game-docs-setup` invocation would find it neither complete nor recognizably incomplete (placeholders) — i.e. structured in a way that doesn't map to `references/question-bank.md`'s categories at all. A design doc that's simply missing answers (has `*Not yet discussed*` placeholders or similar) is **not** a conformance failure — that's `game-docs-setup`'s normal gap-fill case, not a migration.
+`design-doc.md` gets a lighter check: it's non-conforming only if a `game-docs-setup` invocation would find it neither complete nor recognizably incomplete (placeholders) — i.e. structured in a way that doesn't map to the categories of the question bank for the project's type at all (held by `game-docs-setup`; see the design-doc template in `references/doc-templates.md`). A design doc that's simply missing answers (has `*Not yet discussed*` placeholders or similar) is **not** a conformance failure — that's `game-docs-setup`'s normal gap-fill case, not a migration.
 
 ## Reporting the verdict
 

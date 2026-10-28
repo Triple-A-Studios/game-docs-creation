@@ -12,7 +12,7 @@ Exact structure for every file this skill owns. Use these as-is — consistency 
 
 ## `design-doc.md`
 
-Organized by the same categories as `references/question-bank.md` — one section per category, a short recap in the developer's own words for anything discussed, `*Not yet discussed*` for anything not yet touched. This is a living document; it can be reopened and extended even after project setup has happened.
+Organized by the same categories as the question bank for the project's type (`question-bank.md` for a game, `question-bank-asset.md` for an asset, both held by `game-docs-setup`) — one section per category, a short recap in the developer's own words for anything discussed, `*Not yet discussed*` for anything not yet touched. This is a living document; it can be reopened and extended even after project setup has happened.
 
 ---
 
@@ -162,6 +162,7 @@ This project uses the `game-dev-docs` skill. Before doing any work in a fresh se
 
 **Project settings**
 - Engine: <Unity | Unreal>
+- Project type: <game | asset> <!-- a missing line means game -->
 - Unity testing: <NUnit enabled | Play-mode only> <!-- omit this line for Unreal -->
 - Co-author line: <ask once per milestone | never ask again for this project>
 

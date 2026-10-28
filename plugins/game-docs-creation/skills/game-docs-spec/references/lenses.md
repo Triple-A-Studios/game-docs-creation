@@ -63,9 +63,18 @@ What happens when the player fails or the system can't do its job, and how does 
 
 - "What happens on death: lose everything, keep some currency, restart the room or the run?"
 - "If an enemy can't path to the player, what does it do?"
+- Reusable character controller: "If the user forgets a required component or assigns the wrong layer, does it log a clear error, auto-fix, or fail silently?"
 
 ## 9. Scope tags
 
 Which parts are needed for the current phase, and which are later? This keeps the spec from demanding everything at once and lets `game-docs-resume` scope passes against it.
 
 - "Which of these rules does the Prototype phase need, and which can wait for MVP or later?"
+
+## 10. Public API & configuration
+
+Mainly for `asset` projects (reusable packages), and useful for any system other code or designers will build on. What does this system expose, and what is kept internal? Treat shipped defaults as part of the design.
+
+- Reusable character controller: "Which settings are exposed in the inspector, and what are their shipped defaults? Which are only settable from code?"
+- Any reusable system: "Which public methods and events can users depend on, which extension points exist (override, subscribe, replace), and what changes would count as breaking in a later version?"
+- "Is configuration a component, a ScriptableObject asset, or code, and can users swap it at runtime?"

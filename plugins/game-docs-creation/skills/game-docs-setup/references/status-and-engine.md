@@ -45,6 +45,20 @@ When there's existing code or packages to fold into `technical-design-doc.md` be
 - **Third-party packages/plugins**: their own section (`technical-design/dependencies.md`), listing name, purpose, and anything unusual about how it's integrated, so a future session knows what's already available instead of reinventing it.
 - Split the output the same way any other technical-design content is split — one file per system under `Docs/technical-design/`, indexed from `technical-design-doc.md`.
 
+## Asset projects (`Project type: asset`)
+
+For reusable packages and plugins rather than games. Nothing here adds a status or a doc; it changes what gets verified and what the Release Prep phase's milestones are seeded from.
+
+**Verification.** A pass is verified in a clean host project, not just the repo it was written in, and across each engine version, render pipeline, and input system the design doc claims to support. Write that into `current-state.md`'s "Before you test" line like any other engine note. If the repo is itself a UPM package (a root `package.json`, no `Assets/` or `ProjectSettings/`), verification happens in a separate test project that installs it, which the note should say.
+
+**Release checklist.** Seeds the Release Prep phase's milestones in `plan.md` for whichever channel(s) the design doc names. Tracking is ordinary milestones and passes.
+
+- **Git package (Unity, public or private repo).** A `package.json` manifest with the package name, version, display name, minimum Unity version, and dependencies (and a `samples` entry per sample). Conventional layout: `Runtime/`, `Editor/`, `Tests/`, `Samples~/`, `Documentation~/`, with assembly definitions separating them. `README`, `CHANGELOG`, and `LICENSE`. Semantic-version releases as git tags, so consumers can pin with `#tag`; a package that lives in a repo subfolder is installed with a `?path=` query. Verify by installing through the git URL into a clean project, importing the samples, and running the tests. Confirm the details against Unity's package documentation for the targeted version.
+  - **Repo layout caveat:** these skills keep project docs in `Docs/` at the repo root. If the package itself is the repo root, that folder ships inside the package, and Unity can warn consumers about content without `.meta` files in an immutable package. Prefer keeping the package in a subfolder (installed with `?path=`) so `Docs/` stays outside it, or confirm in a clean test install that the warning doesn't appear. Raise this when the package layout is decided (the Packaging & Distribution questions, or the Release Prep milestones).
+- **Private repo.** Everything above, plus: consumers need access to the repo, and a git-URL install runs with the consumer's own git credentials (SSH key or credential helper), so the install docs must say how to get access and what to configure.
+- **Store (Asset Store, Fab).** Treat as requirement categories only: package structure and naming, compatibility claims, documentation and demo, third-party content licensing, listing materials, and versioning and changelog. Have the developer confirm the specifics against the store's current publisher guidelines; they change, and none are assumed here.
+- **Unreal (lighter).** A plugin folder with a `.uplugin` descriptor, installed into a project's `Plugins/` directory, with version and engine-compatibility fields set; the same documentation, changelog, and license items.
+
 ## The backlog
 
 Lives as two tables inside `progress.md` — **Backlog — Open** and **Backlog — Closed** (see `references/doc-templates.md` for their exact shape). Two ways a row gets added to Open:

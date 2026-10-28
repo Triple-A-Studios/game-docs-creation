@@ -55,6 +55,9 @@ The logic, in the order it happens, under what conditions. Rules only, no number
 
 Placeholders are starting points, not decisions. Mark `Yes` for anything that needs playtesting.
 
+## Public API
+*(Optional: for `asset` projects and reusable systems.)* Exposed settings with their shipped defaults, public methods and events, extension points, and what counts as a breaking change.
+
 ## Edge cases
 - <case>: <what happens>
 

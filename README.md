@@ -8,6 +8,10 @@ Claude Code plugin marketplace for the `game-docs-creation` plugin — a family 
 - **`game-docs-spec`** — hammers out how each game system behaves (player controller, combat, and so on): derives the system list from your design doc, interviews you per system through a fixed set of lenses, and writes one spec per system under `Docs/specs/`. Locks rules and intent, never numbers. Optional.
 - **`game-docs-conformance`** — audits and migrates docs that exist but don't follow this plugin's structure (a monolithic tech-design doc, an unstructured plan, merged progress/current-state), retiring the old file to `Docs/legacy/` rather than editing it in place.
 
+## Games and assets
+
+Every project is either a `game` or an `asset` (a reusable package, tool, or plugin, such as a character controller, distributed as a git package, on a store, or both). The type is asked once at setup and recorded in `CLAUDE.md`; it selects the ideation question bank, the phase defaults, and the release checklist. A project with no recorded type is treated as a game, so existing projects behave as before.
+
 ## Install
 
 ```

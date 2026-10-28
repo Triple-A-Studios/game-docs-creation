@@ -1,6 +1,6 @@
 ---
 name: game-docs-spec
-description: Hammers out how each system in a Unity/Unreal game actually works — rules, states and transitions, edge cases, and tunables — by deriving the system list from Docs/design-doc.md and interviewing the developer one system at a time (player controller, combat, enemies, progression, whatever the game has), writing one spec per system under Docs/specs/ plus Docs/spec-index.md. Use after a design doc exists, when the developer says things like "spec out the player controller," "define the combat rules," "hammer out the mechanics," "how should dash work," or wants system behavior pinned down before building it. Specs lock rules and intent, never numbers. Not for concept ideation or project scaffolding (game-docs-setup) and not for ongoing pass work (game-docs-resume).
+description: Hammers out how each system in a Unity/Unreal game actually works — rules, states and transitions, edge cases, and tunables — by deriving the system list from Docs/design-doc.md and interviewing the developer one system at a time (player controller, combat, enemies, progression, whatever the game or reusable asset has), writing one spec per system under Docs/specs/ plus Docs/spec-index.md. Use after a design doc exists, when the developer says things like "spec out the player controller," "define the combat rules," "hammer out the mechanics," "how should dash work," or wants system behavior pinned down before building it. Specs lock rules and intent, never numbers. Not for concept ideation or project scaffolding (game-docs-setup) and not for ongoing pass work (game-docs-resume).
 ---
 
 # Game Docs: System Specs
@@ -28,6 +28,8 @@ Offer to start with the system the next milestone builds (read `plan.md` and `cu
 Walk the lenses in `references/lenses.md` in order, generating questions specific to this game and system. Ground them in the design doc and in any specs already written, and skip anything already answered. Ask a couple of questions at a time, conversationally, not as a recited list or all lenses at once.
 
 Write answers into `Docs/specs/<system>.md` (shape in `references/spec-templates.md`) as they firm up. Don't wait until the end of the interview to write; the file is the record.
+
+For an `asset` project (read `Project type` from the CLAUDE.md block; a missing line means `game`), also apply lens 10, Public API & configuration, and treat the Tunables table as the settings the package exposes, with their shipped defaults. Write the exposed surface into the spec's optional Public API section. Systems in a `game` project can use lens 10 too when other code or designers will build on them, but don't push it.
 
 ### 3. Rules, not numbers
 
